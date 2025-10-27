@@ -4,12 +4,15 @@ import { useContext, useEffect} from "react";
 import { StudentStateContext } from "../../context/StudentContext";
 import StudentApi from "../../../services/api/student/StudentApi";
 import { Button } from "@/components/ui/button"
+import StudentDropDownMenu from "./StudentDropDownMenu";
+import { StudentAdministrationSideBar } from "./administration/StudentAdministrationSideBar";
+
 
 export default function StudentDashboardLayout() {
 
     
     const navigate = useNavigate();
-    const {setUser  , setAuthenticated , user , logout} = useContext(StudentStateContext)
+    const {setUser  , setAuthenticated , logout} = useContext(StudentStateContext)
 
     useEffect(() => {
         StudentApi.getUser().then(({data}) => {
@@ -23,12 +26,7 @@ export default function StudentDashboardLayout() {
         })
     },[]);
 
-    const logoutCallback = async () => {
-       StudentApi.logout().then(() => {
-        logout()
-        navigate(LOGIN_ROUTE)
-       })
-    }
+   
     
 
 
@@ -55,55 +53,22 @@ export default function StudentDashboardLayout() {
                         Register
                     </Link>
                    <li className="ml-4 px-2 py-1">
-                   <Button onClick={logoutCallback}>Logout</Button>
+                    <StudentDropDownMenu/>
                    </li>
                 </nav>
             </header>
 
-            <main>
-                <Outlet></Outlet>
-                <br />
-                
-
-                <div className="overflow-x-auto">
-                    
-                    <table className="min-w-full border border-gray-200 divide-y divide-gray-200">
-                        <thead className="bg-gray-100">
-                            <tr>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
-                                  ID
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
-                                   Name  
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
-                                   Email
-                                </th>
-                                <th className="px-4 py-2 text-left text-sm font-semibold text-gray-700">
-                                    date de creation
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            <tr className="hover:bg-gray-50">
-                                <td className="px-4 py-2 text-sm text-gray-600">
-                                {user.id}
-                                </td>
-                                <td className="px-4 py-2 text-sm text-gray-600">
-                                    {user.name}
-                                </td>
-                                <td className="px-4 py-2 text-sm text-gray-600">
-                                     {user.email}
-                                </td>
-                                <td className="px-4 py-2 text-sm text-gray-600">
-                                    {user.created_at}
-                                </td>
-                            </tr>
-                            
-                            
-                        </tbody>
-                    </table>
+            <main className={'container'}>
+                <div className="flex">
+                    <div className={'w-100 md:w-1/4'}><StudentAdministrationSideBar/>
+                    </div>
+                    <div className={'w-100 md:w-3/4'}><Outlet></Outlet>
+                    </div>
                 </div>
+                
+                
+                <br />
+               
             </main>
             <footer>fouter</footer>
         </>

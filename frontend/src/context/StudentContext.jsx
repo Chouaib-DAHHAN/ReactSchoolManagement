@@ -46,6 +46,7 @@ export default function StudentContext({children}) {
         login,
         authenticated,
         setAuthenticated
+        
 
     }}>
       {children}
