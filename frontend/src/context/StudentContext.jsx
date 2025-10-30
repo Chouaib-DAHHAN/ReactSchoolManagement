@@ -20,11 +20,11 @@ export const  StudentStateContext = createContext({
 export default function StudentContext({children}) {
 
     const [user , setUser] = useState({})
-    const [authenticated , _setAuthenticated] = useState(window.localStorage.getItem('AUTHENTICATED'))
+    const [authenticated , _setAuthenticated] = useState('true' === window.localStorage.getItem('AUTHENTICATED'))
    
     const logout = () => {
       setUser({})
-            _setAuthenticated(false)
+      setAuthenticated(false)
     }  
 
     const  login = async (email,password) => {
