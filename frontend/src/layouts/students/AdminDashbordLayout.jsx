@@ -5,10 +5,10 @@ import { StudentStateContext } from "../../context/StudentContext";
 import StudentApi from "../../../services/api/student/StudentApi";
 import { Button } from "@/components/ui/button"
 import StudentDropDownMenu from "./StudentDropDownMenu";
-import { StudentAdministrationSideBar } from "./administration/StudentAdministrationSideBar";
+import { StudentAdministrationSideBar } from "../students/administration/StudentAdministrationSideBar";
 
 
-export default function StudentDashboardLayout() {
+export default function AdminDashboardLayout() {
 
     
     const navigate = useNavigate();
@@ -21,6 +21,7 @@ export default function StudentDashboardLayout() {
             setisLoading(false)
              StudentApi.getUser().then(({data}) => {
             setUser(data)
+            console.log(data)
             setAuthenticated(true)
             
         }).catch(() => {

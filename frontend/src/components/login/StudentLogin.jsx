@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Await, useNavigate } from "react-router-dom"
-import { STUDENT_DASHBOARD_ROUTE } from "../../../router"
+import { ADMIN_DASHBOARD_ROUTE, STUDENT_DASHBOARD_ROUTE } from "../../router"
 import { useContext } from "react"
-import { StudentStateContext } from "../../../context/StudentContext"
+import { StudentStateContext } from "../../context/StudentContext"
 
 // ✅ Schéma de validation
 const formSchema = z.object({
@@ -50,10 +50,20 @@ export default function StudentLogin() {
  
 async function onSubmit(values) {
   await context.login(values.email , values.password).then(
-            (value) => {
-                if(value.status === 204){
+            ({status,data}) => {
+                if(status === 200){
                   context.setAuthenticated(true)
+                  const {role} = data.user
+                  switch(role){
+                    case 'student':
                     navigate(STUDENT_DASHBOARD_ROUTE)
+                    break;
+                    case 'admin':
+                    navigate(ADMIN_DASHBOARD_ROUTE)
+                    break;
+                  }
+                  console.log(data)
+                    
                 }
             }
          )
