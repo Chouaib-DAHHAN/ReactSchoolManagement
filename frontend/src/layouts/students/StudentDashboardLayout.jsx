@@ -1,7 +1,7 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../router";
 import { useContext, useEffect, useState} from "react";
-import { StudentStateContext } from "../../context/StudentContext";
+import { UserStateContext } from "../../context/UserContext";
 import StudentApi from "../../../services/api/student/StudentApi";
 import { Button } from "@/components/ui/button"
 import StudentDropDownMenu from "./StudentDropDownMenu";
@@ -12,7 +12,7 @@ export default function StudentDashboardLayout() {
 
     
     const navigate = useNavigate();
-    const {setUser  , setAuthenticated , logout , authenticated} = useContext(StudentStateContext)
+    const {setUser  , setAuthenticated , logout , authenticated} = useContext(UserStateContext)
     const [isLoading , setisLoading] = useState(true)
     
 

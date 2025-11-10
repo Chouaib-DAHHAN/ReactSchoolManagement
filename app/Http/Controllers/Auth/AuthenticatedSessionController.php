@@ -13,28 +13,34 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
-    {
-        $request->authenticate();
+   public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
+{
+    // 1. Run the authentication and capture the name of the successful guard.
+    // The updated authenticate() method should now return 'admin', 'web', etc.
+    // If authentication fails, it throws a ValidationException.
+    $successfulGuard = $request->authenticate();
 
-        $guards = array_keys(config('auth.guards'));
-        $user = null;
-         foreach ($guards as $guard) {
-            $currentGuard = Auth::guard($guard);
-            if (Auth::guard($guard)->check()) {
-                $user = $currentGuard->user();
-                break;
-            }
-        }
+    // 2. Retrieve the user ONLY from the successful guard.
+    $user = Auth::guard($successfulGuard)->user();
 
-
-        $request->session()->regenerate();
-
-        return response()->json([
-            'user' => $user,
-            'token' => $user->createToken('api',['admin'])->plainTextToken,
-        ]);
+    // Check if user was actually retrieved (should always be true here, but good practice)
+    if (!$user) {
+        // This scenario is highly unlikely if authenticate() passed, but handle it defensively
+        return response()->json(['message' => 'Authentication failed or user not found.'], 401);
     }
+    
+    // 3. Regenerate the session.
+    $request->session()->regenerate();
+
+    // 4. Return the user and token.
+    // Use the $successfulGuard name as the ability/scope for the token.
+    return response()->json([
+        'user' => $user,
+        // Using $successfulGuard ensures the token reflects the user's role/guard
+        
+        'token' => $user->createToken('api', [$successfulGuard])->plainTextToken, 
+    ]);
+}
 
     /**
      * Destroy an authenticated session.

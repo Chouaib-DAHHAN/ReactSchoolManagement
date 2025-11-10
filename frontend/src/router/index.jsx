@@ -8,8 +8,8 @@ import Layout from "../layouts/Layout";
 import GuestLayout from "../layouts/GuestLayout";
 import StudentDashboardLayout from "@/layouts/students/StudentDashboardLayout";
 import StudentDashboard from "../components/ui/Student/StudentDashboard";
-import AdminDashboardLayout from "../layouts/students/AdminDashbordLayout";
-import AdminDashboard from "../components/ui/Student/AdminDashboard";
+import AdminDashboardLayout from "../layouts/admin/AdminDashbordLayout";
+import AdminDashboard from "../components/ui/admin/AdminDashboard";
 
 export const LOGIN_ROUTE = "/login";
 export const STUDENT_DASHBOARD_ROUTE = "/student/dashboard";
@@ -60,7 +60,7 @@ export const router = createBrowserRouter([
             {
                 path: ADMIN_DASHBOARD_ROUTE,
                 element: <AdminDashboard></AdminDashboard>
-            },
+            }
         ],
     },
 ]);

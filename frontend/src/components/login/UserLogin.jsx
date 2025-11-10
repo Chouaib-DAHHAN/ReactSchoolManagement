@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input"
 import { Await, useNavigate } from "react-router-dom"
 import { ADMIN_DASHBOARD_ROUTE, STUDENT_DASHBOARD_ROUTE } from "../../router"
 import { useContext } from "react"
-import { StudentStateContext } from "../../context/StudentContext"
+import { UserStateContext } from "../../context/UserContext"
 
 // ✅ Schéma de validation
 const formSchema = z.object({
@@ -33,7 +33,8 @@ const formSchema = z.object({
 
 
 
-export default function StudentLogin() {
+export default function UserLogin() {
+  
  
   const form = useForm({
   resolver: zodResolver(formSchema),
@@ -44,7 +45,7 @@ export default function StudentLogin() {
 })
 
 
- const context = useContext(StudentStateContext)
+ const context = useContext(UserStateContext)
  const navigate = useNavigate()
  
  
