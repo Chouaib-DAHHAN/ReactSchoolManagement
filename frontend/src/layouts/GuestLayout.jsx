@@ -1,12 +1,12 @@
 import { Outlet , Link, useNavigate } from "react-router-dom";
 import { STUDENT_DASHBOARD_ROUTE } from "../router";
 import { useContext, useEffect } from "react";
-import { StudentStateContext } from "../context/StudentContext";
+import { UserStateContext } from "../context/UserContext";
 
 export default function GuestLayout() {
 
     const navigate = useNavigate()
-    const context = useContext(StudentStateContext)
+    const context = useContext(UserStateContext)
     
 
     useEffect(() => {

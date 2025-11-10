@@ -16,13 +16,13 @@ import {
 import StudentApi from "../../../services/api/student/StudentApi";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { StudentStateContext } from "../../context/StudentContext";
+import { UserStateContext } from "../../context/UserContext";
 import { LOGIN_ROUTE } from "../../router";
 
 
 export default function StudentDropDownMenu() {
 
-      const {logout , user} = useContext(StudentStateContext)
+      const {logout , user} = useContext(UserStateContext)
     const navigate = useNavigate();
 
 

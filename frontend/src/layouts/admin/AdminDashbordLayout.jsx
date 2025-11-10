@@ -1,18 +1,18 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../router";
 import { useContext, useEffect, useState} from "react";
-import { StudentStateContext } from "../../context/StudentContext";
+import { UserStateContext } from "../../context/UserContext";
 import StudentApi from "../../../services/api/student/StudentApi";
 import { Button } from "@/components/ui/button"
-import StudentDropDownMenu from "./StudentDropDownMenu";
-import { StudentAdministrationSideBar } from "../students/administration/StudentAdministrationSideBar";
+import StudentDropDownMenu from "../students/StudentDropDownMenu";
+import { AdminAdministrationSideBar } from "./administration/AdminAdministrationSideBar";
 
 
 export default function AdminDashboardLayout() {
 
     
     const navigate = useNavigate();
-    const {setUser  , setAuthenticated , logout , authenticated} = useContext(StudentStateContext)
+    const {setUser  , setAuthenticated , logout , authenticated} = useContext(UserStateContext)
     const [isLoading , setisLoading] = useState(true)
     
 
@@ -71,7 +71,7 @@ export default function AdminDashboardLayout() {
 
             <main className={'container'}>
                 <div className="flex">
-                    <div className={'w-100 md:w-1/4'}><StudentAdministrationSideBar/>
+                    <div className={'w-100 md:w-1/4'}><AdminAdministrationSideBar/>
                     </div>
                     <div className={'w-100 md:w-3/4'}><Outlet></Outlet>
                     </div>

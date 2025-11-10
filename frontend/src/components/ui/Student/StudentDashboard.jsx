@@ -1,9 +1,9 @@
 import { useContext} from "react";
-import { StudentStateContext } from "@/context/StudentContext";
+import { UserStateContext } from "@/context/UserContext";
 
 export default function StudentDashboard() {
 
-      const { user } = useContext(StudentStateContext)
+      const { user } = useContext(UserStateContext)
 
   return (
     

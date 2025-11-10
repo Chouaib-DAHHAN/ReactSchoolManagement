@@ -4,7 +4,7 @@ import { STUDENT_DASHBOARD_ROUTE } from "../router"
 
 
 
-export const  StudentStateContext = createContext({
+export const  UserStateContext = createContext({
     logout: () => {},
     setUser : () => {},
     user : {},
@@ -17,7 +17,7 @@ export const  StudentStateContext = createContext({
 
 
 
-export default function StudentContext({children}) {
+export default function UserContext({children}) {
 
     const [user , setUser] = useState({})
     const [authenticated , _setAuthenticated] = useState('true' === window.localStorage.getItem('AUTHENTICATED'))
@@ -39,7 +39,7 @@ export default function StudentContext({children}) {
 
   return (
     <>
-    <StudentStateContext.Provider value={{  
+    <UserStateContext.Provider value={{  
         user,
         setUser,
         logout,
@@ -50,7 +50,7 @@ export default function StudentContext({children}) {
 
     }}>
       {children}
-    </StudentStateContext.Provider>
+    </UserStateContext.Provider>
     </>
 
   )
