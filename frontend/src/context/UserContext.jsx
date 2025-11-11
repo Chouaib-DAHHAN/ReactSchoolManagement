@@ -1,5 +1,5 @@
 import { createContext, useState } from "react"
-import StudentApi from "../../services/api/student/StudentApi"
+import UserApi from "../../services/api/student/UserApi"
 import { STUDENT_DASHBOARD_ROUTE } from "../router"
 
 
@@ -11,6 +11,7 @@ export const  UserStateContext = createContext({
     authenticated : false,
     login : (email , password) => {},
     setAuthenticated : () => {},
+    setToken : () => {},
 
 })
 
@@ -28,8 +29,7 @@ export default function UserContext({children}) {
     }  
 
     const  login = async (email,password) => {
-       await StudentApi.getCSRFToken()
-         return StudentApi.login(email,password)
+         return UserApi.login(email,password)
     }
 
     const setAuthenticated = (isAuthenticated) => {
@@ -37,6 +37,10 @@ export default function UserContext({children}) {
        window.localStorage.setItem('AUTHENTICATED' , isAuthenticated)
     }
 
+
+    const setToken = (token) => {
+      window.localStorage.setItem('token' , token)
+    }
   return (
     <>
     <UserStateContext.Provider value={{  
@@ -45,7 +49,9 @@ export default function UserContext({children}) {
         logout,
         login,
         authenticated,
-        setAuthenticated
+        setAuthenticated,
+        setToken
+
         
 
     }}>

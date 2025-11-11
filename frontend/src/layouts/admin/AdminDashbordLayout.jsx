@@ -2,7 +2,7 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../router";
 import { useContext, useEffect, useState} from "react";
 import { UserStateContext } from "../../context/UserContext";
-import StudentApi from "../../../services/api/student/StudentApi";
+import UserApi from "../../../services/api/student/UserApi";
 import { Button } from "@/components/ui/button"
 import StudentDropDownMenu from "../students/StudentDropDownMenu";
 import { AdminAdministrationSideBar } from "./administration/AdminAdministrationSideBar";
@@ -19,7 +19,7 @@ export default function AdminDashboardLayout() {
     useEffect(() => {
         if(authenticated === true){
             setisLoading(false)
-             StudentApi.getUser().then(({data}) => {
+             UserApi.getUser().then(({data}) => {
             setUser(data)
             console.log(data)
             setAuthenticated(true)

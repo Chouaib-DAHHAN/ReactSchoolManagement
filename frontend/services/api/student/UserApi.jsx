@@ -2,18 +2,14 @@ import { axiosClient } from "../../../src/api/axios";
 
 
 
-const StudentApi = {
-    getCSRFToken : async () => {
-           return await axiosClient.get('/sanctum/csrf-cookie' , {
-                baseURL : import.meta.env.VITE_BACKEND_URL
-              })
-    },
+const UserApi = {
+   
     login : async (email,password) => {
         return await axiosClient.post('/login', {email,password})
         
     },
     getUser : async () => {
-        return await  axiosClient.get("/user")
+        return await  axiosClient.get("/admin")
     },
 
     logout : async () => {
@@ -26,4 +22,4 @@ const StudentApi = {
   
 }
 
-export default StudentApi
+export default UserApi
