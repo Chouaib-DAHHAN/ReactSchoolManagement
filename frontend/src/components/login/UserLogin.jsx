@@ -53,8 +53,11 @@ async function onSubmit(values) {
   await context.login(values.email , values.password).then(
             ({status,data}) => {
                 if(status === 200){
+                  context.setToken(data.token)
                   context.setAuthenticated(true)
                   const {role} = data.user
+                  console.log(data)
+                  console.log(role)
                   switch(role){
                     case 'student':
                     navigate(STUDENT_DASHBOARD_ROUTE)
