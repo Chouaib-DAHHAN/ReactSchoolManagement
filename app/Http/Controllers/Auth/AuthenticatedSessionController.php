@@ -10,49 +10,46 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
-     */
-   public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
-{
-    // 1. Run the authentication and capture the name of the successful guard.
-    // The updated authenticate() method should now return 'admin', 'web', etc.
-    // If authentication fails, it throws a ValidationException.
-    $successfulGuard = $request->authenticate();
+    public function store(LoginRequest $request): \Illuminate\Http\JsonResponse
+    {
+        // Authenticate and get the guard name
+        $successfulGuard = $request->authenticate();
 
-    // 2. Retrieve the user ONLY from the successful guard.
-    $user = Auth::guard($successfulGuard)->user();
+        // Get the authenticated user
+        $user = Auth::guard($successfulGuard)->user();
 
-    // Check if user was actually retrieved (should always be true here, but good practice)
-    if (!$user) {
-        // This scenario is highly unlikely if authenticate() passed, but handle it defensively
-        return response()->json(['message' => 'Authentication failed or user not found.'], 401);
-    }
-    
-    // 3. Regenerate the session.
-    $request->session()->regenerate();
+        if (!$user) {
+            return response()->json(['message' => 'Authentication failed or user not found.'], 401);
+        }
 
-    // 4. Return the user and token.
-    // Use the $successfulGuard name as the ability/scope for the token.
-    return response()->json([
-        'user' => $user,
-        // Using $successfulGuard ensures the token reflects the user's role/guard
+        // Regenerate session
+        $request->session()->regenerate();
+
+        // Ensure the role is explicitly set based on guard
+        $userData = $user->toArray();
         
-        'token' => $user->createToken('api', [$successfulGuard])->plainTextToken, 
-    ]);
-}
+        // Manually set the role based on the guard for certainty
+        $role = match($successfulGuard) {
+            'admin' => 'admin',
+            'web' => 'student', // Assuming 'web' guard is for students
+            'teacher' => 'teacher',
+            default => 'student'
+        };
 
-    /**
-     * Destroy an authenticated session.
-     */
+        // Add role to user data
+        $userData['role'] = $role;
+
+        return response()->json([
+            'user' => $userData,
+            'token' => $user->createToken('api', [$successfulGuard])->plainTextToken,
+        ]);
+    }
+
     public function destroy(Request $request): Response
     {
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
-
         return response()->noContent();
     }
 }

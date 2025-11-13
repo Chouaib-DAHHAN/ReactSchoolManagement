@@ -18,7 +18,7 @@ export default function Layout() {
      
     <Outlet></Outlet>
     </main> 
-    <footer>fouter</footer>
+    
     </>
 
   )
