@@ -50,27 +50,34 @@ export default function UserLogin() {
  
  
 async function onSubmit(values) {
-  await context.login(values.email , values.password).then(
-            ({status,data}) => {
-                if(status === 200){
-                  context.setToken(data.token)
-                  context.setAuthenticated(true)
-                  const {role} = data.user
-                  console.log(data)
-                  console.log(role)
-                  switch(role){
-                    case 'student':
-                    navigate(STUDENT_DASHBOARD_ROUTE)
-                    break;
-                    case 'admin':
-                    navigate(ADMIN_DASHBOARD_ROUTE)
-                    break;
-                  }
-                  console.log(data)
-                    
-                }
-            }
-         )
+  await context.login(values.email, values.password).then(
+    ({status, data}) => {
+      if(status === 200){
+        context.setToken(data.token)
+        context.setAuthenticated(true)
+        const {role} = data.user
+        
+        // Add debugging
+        console.log('Login successful, user role:', role)
+        console.log('Full user data:', data.user)
+        
+        switch(role){
+          case 'student':
+            console.log('Redirecting to student dashboard')
+            navigate(STUDENT_DASHBOARD_ROUTE)
+            break;
+          case 'admin':
+            console.log('Redirecting to admin dashboard')
+            navigate(ADMIN_DASHBOARD_ROUTE)
+            break;
+          default:
+            console.log('Unknown role:', role)
+        }
+      }
+    }
+  ).catch(error => {
+    console.error('Login error:', error)
+  })
 }
 
   return (

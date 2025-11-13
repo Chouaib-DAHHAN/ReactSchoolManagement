@@ -32,7 +32,7 @@ export default function GuestLayout() {
      
     <Outlet></Outlet>
     </main> 
-    <footer>fouter</footer>
+ 
     </>
 
   )

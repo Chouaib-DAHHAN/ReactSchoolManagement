@@ -9,11 +9,14 @@ import GuestLayout from "../layouts/GuestLayout";
 import StudentDashboardLayout from "@/layouts/students/StudentDashboardLayout";
 import StudentDashboard from "../components/ui/Student/StudentDashboard";
 import AdminDashboardLayout from "../layouts/admin/AdminDashbordLayout";
-import AdminDashboard from "../components/ui/admin/AdminDashboard";
+import AdminDashboard from "../components/ui/Admin/AdminDashboard";
+import ManageParents from "../components/ui/Admin/ManageParents";
 
-export const LOGIN_ROUTE = "/login";
-export const STUDENT_DASHBOARD_ROUTE = "/student/dashboard";
-export const ADMIN_DASHBOARD_ROUTE = "/admin/dashboard";
+export const LOGIN_ROUTE = '/login';
+export const STUDENT_DASHBOARD_ROUTE = '/dashboard';
+const ADMIN_BASE_ROUTE = '/admin'
+export const ADMIN_DASHBOARD_ROUTE = ADMIN_BASE_ROUTE+'/dashboard';
+export const ADMIN_MANAGE_PARENTS_ROUTE = ADMIN_BASE_ROUTE+'/manage-parents'
 
 
 export const router = createBrowserRouter([
@@ -60,6 +63,11 @@ export const router = createBrowserRouter([
             {
                 path: ADMIN_DASHBOARD_ROUTE,
                 element: <AdminDashboard></AdminDashboard>
+            },
+
+              {
+                path: ADMIN_MANAGE_PARENTS_ROUTE,
+                element: <ManageParents></ManageParents>
             }
         ],
     },

@@ -29,6 +29,7 @@ export default function UserContext({children}) {
     }  
 
     const  login = async (email,password) => {
+      await UserApi.getCSRFToken()
          return UserApi.login(email,password)
     }
 

@@ -31,10 +31,10 @@ export default function AdminDashboard() {
                         <tbody className="divide-y divide-gray-200">
                             <tr className="hover:bg-gray-50">
                                 <td className="px-4 py-2 text-sm text-gray-600">
-                                {user.id}
+                                {user.firstname}
                                 </td>
                                 <td className="px-4 py-2 text-sm text-gray-600">
-                                    {user.name}
+                                    {user.lastname}
                                 </td>
                                 <td className="px-4 py-2 text-sm text-gray-600">
                                      {user.email}
