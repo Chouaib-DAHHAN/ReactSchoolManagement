@@ -2,7 +2,7 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../../router";
 import { useContext, useEffect, useState} from "react";
 import { UserStateContext } from "../../context/UserContext";
-import UserApi from "../../../services/api/student/UserApi";
+import UserApi from "@/services/api/student/UserApi";
 import { Button } from "@/components/ui/button"
 import StudentDropDownMenu from "./StudentDropDownMenu";
 import { StudentAdministrationSideBar } from "./administration/StudentAdministrationSideBar";
