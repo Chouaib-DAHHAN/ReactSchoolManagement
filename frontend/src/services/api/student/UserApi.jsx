@@ -1,4 +1,4 @@
-import { axiosClient } from "../../../src/api/axios";
+import { axiosClient } from "../../../api/axios";
 
 
 

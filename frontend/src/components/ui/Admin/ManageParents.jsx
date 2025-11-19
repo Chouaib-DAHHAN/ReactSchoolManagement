@@ -3,6 +3,8 @@ import { UserStateContext } from "@/context/UserContext";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "../../ui/tabs.jsx";
 import {Separator} from "../../ui/separator.jsx";
 import {ScrollArea, ScrollBar} from "../../ui/scroll-area.jsx";
+import ParentCreateForm from "../../Forms/ParentCreateForm.jsx";
+import AdminParentsList from "../../data-table/parent/AdminParentsList.jsx";
 
 export default function ManageParents(){
 
@@ -34,7 +36,7 @@ export default function ManageParents(){
                           <h2 className="text-2xl font-semibold tracking-tight">
                             All parents
                           </h2>
-                          {/* <AdminParentList/> */}
+                          { <AdminParentsList/> }
                         </div>
                       </div>
                       <Separator className="my-4"/>
@@ -50,6 +52,8 @@ export default function ManageParents(){
                       value="add_parent">
                       <div className="space-y-1">
                         {/* <ParentUpsertForm handleSubmit={(values) => ParentApi.create(values)}/> */}
+                        <ParentCreateForm></ParentCreateForm>
+                      
                       </div>
                       <Separator className="my-4"/>
                     </TabsContent>

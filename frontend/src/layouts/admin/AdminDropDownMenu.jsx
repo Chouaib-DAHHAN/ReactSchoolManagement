@@ -13,7 +13,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import UserApi from "../../../services/api/student/UserApi";
+import UserApi from "../../services/api/student/UserApi";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext } from "../../context/UserContext";
@@ -37,7 +37,7 @@ export default function AdminDropDownMenu() {
    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button>{user.name}</Button>
+        <Button>{user.firstname} {user.lastname}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
