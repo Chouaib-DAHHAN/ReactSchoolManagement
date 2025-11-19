@@ -14,7 +14,8 @@ class StudentParentController extends Controller
      */
     public function index()
     {
-        //
+       $parents =  StudentParent::all();
+       return StudentParentResource::collection($parents);
     }
 
     /**

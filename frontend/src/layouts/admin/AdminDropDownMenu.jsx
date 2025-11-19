@@ -37,7 +37,7 @@ export default function AdminDropDownMenu() {
    <>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button>{user.name}</Button>
+        <Button>{user.firstname} {user.lastname}</Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="start">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
