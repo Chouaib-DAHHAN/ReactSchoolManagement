@@ -1,5 +1,4 @@
-import { useContext} from "react";
-import { UserStateContext } from "@/context/UserContext";
+
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "../../ui/tabs.jsx";
 import {Separator} from "../../ui/separator.jsx";
 import {ScrollArea, ScrollBar} from "../../ui/scroll-area.jsx";
@@ -8,10 +7,9 @@ import AdminParentsList from "../../data-table/parent/AdminParentsList.jsx";
 
 export default function ManageParents(){
 
-        const { user } = useContext(UserStateContext)
 
   return <>
-    <div className="relative overflow-x-auto">
+    <div>
       <div className="hidden md:block">
         <div className="">
           <div className="bg-background">
