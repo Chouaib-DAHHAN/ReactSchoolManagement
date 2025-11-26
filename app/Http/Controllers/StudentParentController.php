@@ -25,9 +25,13 @@ class StudentParentController extends Controller
     {
 
       $formData = $request->validated();
-      $formData['last_login_date'] = (new \DateTime());
+      $formData['last_login_date'] = now()->toDateTimeString();
       $parent = StudentParent::create($formData);
-      return new StudentParentResource($parent);
+      $response = new StudentParentResource($parent);
+      return response()->json([
+        'parent'=> $response,
+        'message'=> __('parent created successfully')
+      ]);
       
     }
 

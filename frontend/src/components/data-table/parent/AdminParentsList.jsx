@@ -5,6 +5,14 @@ import { Button } from "@/components/ui/button";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { DataTableColumnHeader } from "../DataTableColumnHeader";
 import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
+import {
     AlertDialog,
     AlertDialogAction,
     AlertDialogCancel,
@@ -16,6 +24,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import ParentCreateEditForm from "../../Forms/ParentCreateEditForm";
 
 export default function AdminParentsList() {
     const parents = [
@@ -93,6 +102,22 @@ export default function AdminParentsList() {
 
                 return (
                     <>
+                        <Sheet>
+                            <SheetTrigger><Button>Edit</Button></SheetTrigger>
+                            <SheetContent>
+                                <SheetHeader>
+                                    <SheetTitle>
+                                        Are you absolutely sure?
+                                    </SheetTitle>
+                                    <SheetDescription>
+                                        This action cannot be undone. This will
+                                        permanently delete your account and
+                                        remove your data from our servers.
+                                    </SheetDescription>
+                                     <ParentCreateEditForm values={row.original} handleSubmit={(values) => ParentApi.update(values)}/>
+                                </SheetHeader>
+                            </SheetContent>
+                        </Sheet>
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
                                 <Button size={"sm"} variant={"destructive"}>
@@ -120,8 +145,9 @@ export default function AdminParentsList() {
                                     </AlertDialogCancel>
                                     <AlertDialogAction
                                         onClick={async () => {
-                                            const {status} = await ParentApi.delete(id)
-                                           
+                                            const { status } =
+                                                await ParentApi.delete(id);
+
                                             if (status === 200) {
                                                 setData(
                                                     data.filter(

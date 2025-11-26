@@ -42,33 +42,20 @@ const formSchema = z.object({
    
 });
 
-export default function ParentCreateForm() {
+export default function ParentCreateEditForm({handleSubmit , values}) {
     const form = useForm({
         resolver: zodResolver(formSchema),
-        defaultValues : {
-          firstname: "",      // ADDED
-            lastname: "",       // ADDED
-            date_of_birth: "",  // ADDED
-            gender: undefined,  // Use undefined for RadioGroup/Select to trigger placeholder/no selection
-            blood_type: undefined, // Use undefined for Select
-            address: "",        // ADDED
-            phone: "",        // ADDED
-            email: ""
-            
-        }
+        defaultValues : values || {}
     })
 
      const {setError, formState: {isSubmitting} , reset} = form
    
    const onSubmit = async values =>{
-        console.log(values);
-        await ParentApi.create(values)
+        await handleSubmit(values)
             .then(({ status, data }) => {
-                if (status === 201) {
+                if (status === 200) {
                     console.log(data);
-                    toast.success('Parent Created Successfully!', {
-                      description: 'The parent record has been added to the database.'
-                    });
+                    toast.success(data.message);
           reset()
                 }
             })
