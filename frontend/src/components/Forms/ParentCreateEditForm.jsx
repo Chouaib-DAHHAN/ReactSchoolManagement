@@ -54,7 +54,6 @@ export default function ParentCreateEditForm({handleSubmit , values}) {
         await handleSubmit(values)
             .then(({ status, data }) => {
                 if (status === 200) {
-                    console.log(data);
                     toast.success(data.message);
           reset()
                 }
@@ -237,7 +236,7 @@ export default function ParentCreateEditForm({handleSubmit , values}) {
 
                 <Button className={"mt-2"} type="submit">
                     {isSubmitting} 
-         submit
+                  {values? 'update' : 'create'}
                 </Button>
             </form>
         </Form>

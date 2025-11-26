@@ -11,11 +11,9 @@ const ParentApi = {
         
     },
 
-   update : async (id,payload) => {
-    delete payload.id
-        return await axiosClient.put(`admin/parents/${id}`)
-        
-    },
+  update: async (id, payload) => {
+    return await axiosClient.put(`/admin/parents/${id}`, {...payload, id})
+  },
 
 
     all : async() => {

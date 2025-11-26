@@ -52,7 +52,7 @@ export default function ManageParents(){
                       <div className="space-y-1">
                          <ParentCreateEditForm handleSubmit = {(values) => 
                           ParentApi.create(values)
-                         }/> *
+                         }/> 
                       </div>
                       <Separator className="my-4"/>
                     </TabsContent>

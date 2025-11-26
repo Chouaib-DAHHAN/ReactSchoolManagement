@@ -103,7 +103,9 @@ export default function AdminParentsList() {
                 return (
                     <>
                         <Sheet>
-                            <SheetTrigger><Button>Edit</Button></SheetTrigger>
+                            <SheetTrigger>
+                                <Button>Edit</Button>
+                                </SheetTrigger>
                             <SheetContent>
                                 <SheetHeader>
                                     <SheetTitle>
@@ -111,10 +113,9 @@ export default function AdminParentsList() {
                                     </SheetTitle>
                                     <SheetDescription>
                                         This action cannot be undone. This will
-                                        permanently delete your account and
-                                        remove your data from our servers.
+                                        Update your account !
                                     </SheetDescription>
-                                     <ParentCreateEditForm values={row.original} handleSubmit={(values) => ParentApi.update(values)}/>
+                                     <ParentCreateEditForm values={row.original} handleSubmit={(values) => ParentApi.update(id ,values)}/>
                                 </SheetHeader>
                             </SheetContent>
                         </Sheet>

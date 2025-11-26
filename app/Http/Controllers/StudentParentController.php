@@ -46,17 +46,21 @@ class StudentParentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStudentParentRequest $request, StudentParent $studentParent)
+    public function update(UpdateStudentParentRequest $request, StudentParent $parent)
     {
-        //
+        $parent->update($request->validated());
+        return response()->json([
+        'parent'=> $parent,
+        'message'=> __('parent updated successfully')
+      ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StudentParent $studentParent)
+    public function destroy(StudentParent $parent)
     {
-        $studentParent->delete();
-        return new StudentParentResource($studentParent);
+        $parent->delete();
+        return new StudentParentResource($parent);
     }
 }
