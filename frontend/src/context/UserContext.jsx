@@ -1,5 +1,5 @@
 import { createContext, useState } from "react"
-import UserApi from "@/services/api/student/UserApi"
+import UserApi from "@/services/api/UserApi"
 import { STUDENT_DASHBOARD_ROUTE } from "../router"
 
 

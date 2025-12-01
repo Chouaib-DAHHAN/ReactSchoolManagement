@@ -1,100 +1,39 @@
 import { Outlet, Link, useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE } from "../../router";
+import { LOGIN_ROUTE, redirectToDashboard } from "../../router";
 import { useContext, useEffect, useState} from "react";
 import { UserStateContext } from "../../context/UserContext";
-import UserApi from "@/services/api/student/UserApi";
+import UserApi from "@/services/api/UserApi";
 import { Button } from "@/components/ui/button"
 import StudentDropDownMenu from "./StudentDropDownMenu";
 import { StudentAdministrationSideBar } from "./administration/StudentAdministrationSideBar";
 
 export default function StudentDashboardLayout() {
     const navigate = useNavigate();
-    const { user, setUser, setAuthenticated, logout, authenticated, token } = useContext(UserStateContext);
+    const { user, setUser, setAuthenticated, logout, authenticated} = useContext(UserStateContext);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        // If we already have user data from login, use it directly
-        if (user && user.role) {
-            setIsLoading(false);
-            if (user.role !== 'student') {
-                console.log('Non-student user in student dashboard, redirecting to appropriate dashboard...');
-                if (user.role === 'admin') {
-                    navigate('/admin/dashboard');
-                } else {
-                    navigate(LOGIN_ROUTE);
+      useEffect(() => {
+    if (authenticated === true) {
+      setIsLoading(false)
+      UserApi.getUser().then(({data}) => {
+        const {role} = data
+                if(role !== 'student') {
+                  navigate(redirectToDashboard(role));
                 }
-            }
-            return;
-        }
+        setUser(data)
+        setAuthenticated(true)
+      }).catch(() => {
+        logout()
+      })
+    } else {
+      navigate(LOGIN_ROUTE)
+    }
 
-        // If no token or authentication, redirect to login
-        if (!token && !authenticated) {
-            navigate(LOGIN_ROUTE);
-            return;
-        }
+  }, [authenticated]);
 
-        // Fetch user data from API
-        const fetchUserData = async () => {
-            try {
-                const response = await UserApi.getUser();
-                const userData = response.data;
-                
-                setUser(userData);
-                setAuthenticated(true);
-                setIsLoading(false);
-                
-                // Check if user is actually a student
-                if (userData.role !== 'student') {
-                    console.log('API returned non-student user for student dashboard, redirecting...');
-                    if (userData.role === 'admin') {
-                        navigate('/admin/dashboard');
-                    } else {
-                        logout();
-                    }
-                }
-            } catch (error) {
-                console.error('Failed to fetch user data in student layout:', error);
-                
-                // Handle specific error cases
-                if (error.response?.status === 429) {
-                    // Rate limit - use fallback: check if we have any user data in context
-                    if (user) {
-                        setIsLoading(false);
-                    } else {
-                        // Wait a bit and try again once
-                        setTimeout(async () => {
-                            try {
-                                const retryResponse = await UserApi.getUser();
-                                const retryData = retryResponse.data;
-                                setUser(retryData);
-                                setAuthenticated(true);
-                                setIsLoading(false);
-                                
-                                if (retryData.role !== 'student') {
-                                    navigate('/admin/dashboard');
-                                }
-                            } catch (retryError) {
-                                console.error('Retry also failed:', retryError);
-                                logout();
-                            }
-                        }, 2000);
-                    }
-                } else if (error.response?.status === 401 || error.response?.status === 403) {
-                    // Unauthorized or Forbidden - redirect to login
-                    logout();
-                } else {
-                    // Other errors - use context data if available
-                    if (user) {
-                        setIsLoading(false);
-                    } else {
-                        logout();
-                    }
-                }
-            }
-        };
-
-        fetchUserData();
-    }, [token, authenticated, navigate, setUser, setAuthenticated, logout, user]);
+  if (isLoading) {
+    return <></>
+  }
 
     if (isLoading) {
         return (

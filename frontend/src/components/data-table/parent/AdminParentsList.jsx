@@ -26,7 +26,10 @@ import {
 import { toast } from "sonner";
 import ParentCreateEditForm from "../../Forms/ParentCreateEditForm";
 
+
 export default function AdminParentsList() {
+
+    
     const parents = [
         {
             accessorKey: "id",
@@ -99,6 +102,10 @@ export default function AdminParentsList() {
             id: "actions",
             cell: ({ row }) => {
                 const { id, firstname, lastname } = row.original;
+
+
+          
+        
 
                 return (
                     <>
