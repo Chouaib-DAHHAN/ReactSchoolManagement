@@ -13,7 +13,7 @@ class StudentParent extends Model
         'firstname',
         'lastname',
         'date_of_birth',
-        
+          'last_login_date',
         'gender',
         'blood_type',
         'address',
@@ -22,9 +22,13 @@ class StudentParent extends Model
     ];
 
     protected $hidden = [
-        'last_login_date',
+      
         'email_verified_at',
         'deleted_at'
 
+    ];
+
+    protected $casts = [
+          'date_of_birth'=> 'date:Y-m-d'
     ];
 }

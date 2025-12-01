@@ -11,12 +11,22 @@ import StudentDashboard from "../components/ui/Student/StudentDashboard";
 import AdminDashboardLayout from "../layouts/admin/AdminDashbordLayout";
 import AdminDashboard from "../components/ui/Admin/AdminDashboard";
 import ManageParents from "../components/ui/Admin/ManageParents";
+import ManageStudents from "../components/ui/Admin/ManageStudents";
 
 export const LOGIN_ROUTE = '/login';
 export const STUDENT_DASHBOARD_ROUTE = '/dashboard';
 const ADMIN_BASE_ROUTE = '/admin'
 export const ADMIN_DASHBOARD_ROUTE = ADMIN_BASE_ROUTE+'/dashboard';
 export const ADMIN_MANAGE_PARENTS_ROUTE = ADMIN_BASE_ROUTE+'/manage-parents'
+export const ADMIN_MANAGE_STUDENTS_ROUTE = ADMIN_BASE_ROUTE+'/manage-students'
+export const redirectToDashboard = (roleType) => {
+  switch (roleType) {
+    case 'student':
+      return (STUDENT_DASHBOARD_ROUTE);
+    case 'admin':
+      return (ADMIN_DASHBOARD_ROUTE)
+  }
+}
 
 
 export const router = createBrowserRouter([
@@ -68,6 +78,10 @@ export const router = createBrowserRouter([
               {
                 path: ADMIN_MANAGE_PARENTS_ROUTE,
                 element: <ManageParents></ManageParents>
+            },
+            {
+                path: ADMIN_MANAGE_STUDENTS_ROUTE,
+                element: <ManageStudents/>
             }
         ],
     },

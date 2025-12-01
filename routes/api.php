@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentParentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,28 +17,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Student Routes
-Route::middleware(['auth:sanctum', 'ability:student'])->prefix('student')->group(static function () {
-    Route::get('/', function (Request $request) {
-        return $request->user();
-    });
+
+Route::middleware(['auth:sanctum'])->group(static function () {
+  Route::get('/me', function (Request $request) {
+    return $request->user();
+  });
 });
+
+
+
+Route::middleware(['auth:sanctum', 'ability:student'])->prefix('student')->group(static function () { });
 
 // Admin Routes (The issue was reported near here)
 Route::middleware(['auth:sanctum', 'ability:admin'])->prefix('admin')->group(static function () {
     Route::apiResources([
         'parents' => StudentParentController::class,
+        'students' => StudentController::class,
     ]);
 
-    Route::get('/', function (Request $request) {
-        return $request->user();
-    });
+    
 });
 
 // Teacher Routes
 Route::middleware(['auth:sanctum', 'ability:teacher'])->prefix('teacher')->group(static function () {
-    Route::get('/', function (Request $request) {
-        return $request->user();
-    });
+   
 });
 
 

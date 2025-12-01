@@ -5,8 +5,9 @@ import {ScrollArea, ScrollBar} from "../../ui/scroll-area.jsx";
 import AdminParentsList from "../../data-table/parent/AdminParentsList.jsx";
 import ParentApi from "../../../services/api/ParentApi.jsx";
 import ParentCreateEditForm from "../../Forms/ParentCreateEditForm.jsx";
+import StudentsList from "../../data-table/student/StudentsList.jsx";
 
-export default function ManageParents(){
+export default function ManageStudents(){
 
 
   return <>
@@ -17,25 +18,25 @@ export default function ManageParents(){
             <div className="grid">
               <div className="col-span-3 lg:col-span-4">
                 <div className="h-full px-4 py-6 lg:px-8">
-                  <Tabs defaultValue="parents_list" className="h-full space-y-6">
+                  <Tabs defaultValue="students_list" className="h-full space-y-6">
                     <div className="space-between flex items-center">
                       <TabsList>
-                        <TabsTrigger value="parents_list" className="relative">
-                          Parents
+                        <TabsTrigger value="students_list" className="relative">
+                          Students
                         </TabsTrigger>
-                        <TabsTrigger value="add_parent">Add new parent</TabsTrigger>
+                        <TabsTrigger value="add_student">Add new student</TabsTrigger>
                       </TabsList>
                     </div>
                     <TabsContent
-                      value="parents_list"
+                      value="students_list"
                       className="border-none p-0 outline-none"
                     >
                       <div className="flex items-center justify-between">
                         <div className="space-y-1 w-full">
                           <h2 className="text-2xl font-semibold tracking-tight">
-                            All parents
+                            All Students
                           </h2>
-                          { <AdminParentsList/> }
+                          {<StudentsList/> }
                         </div>
                       </div>
                       <Separator className="my-4"/>
@@ -48,7 +49,7 @@ export default function ManageParents(){
                       </div>
                     </TabsContent>
                     <TabsContent
-                      value="add_parent">
+                      value="add_student">
                       <div className="space-y-1">
                          <ParentCreateEditForm handleSubmit = {(values) => 
                           ParentApi.create(values)

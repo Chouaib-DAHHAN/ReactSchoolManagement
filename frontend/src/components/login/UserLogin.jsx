@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Await, useNavigate } from "react-router-dom"
-import { ADMIN_DASHBOARD_ROUTE, STUDENT_DASHBOARD_ROUTE } from "../../router"
+import { ADMIN_DASHBOARD_ROUTE, redirectToDashboard, STUDENT_DASHBOARD_ROUTE } from "../../router"
 import { useContext } from "react"
 import { UserStateContext } from "../../context/UserContext"
 
@@ -55,24 +55,11 @@ async function onSubmit(values) {
       if(status === 200){
         context.setToken(data.token)
         context.setAuthenticated(true)
+        console.log(data)
         const {role} = data.user
+        navigate(redirectToDashboard(role))
+     
         
-        // Add debugging
-        console.log('Login successful, user role:', role)
-        console.log('Full user data:', data.user)
-        
-        switch(role){
-          case 'student':
-            console.log('Redirecting to student dashboard')
-            navigate(STUDENT_DASHBOARD_ROUTE)
-            break;
-          case 'admin':
-            console.log('Redirecting to admin dashboard')
-            navigate(ADMIN_DASHBOARD_ROUTE)
-            break;
-          default:
-            console.log('Unknown role:', role)
-        }
       }
     }
   ).catch(error => {

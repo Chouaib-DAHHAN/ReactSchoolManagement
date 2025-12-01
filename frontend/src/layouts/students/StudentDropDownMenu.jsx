@@ -13,7 +13,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import UserApi from "@/services/api/student/UserApi";
+import UserApi from "@/services/api/UserApi";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext } from "../../context/UserContext";

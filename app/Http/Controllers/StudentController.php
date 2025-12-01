@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreStudentParentRequest;
 use App\Http\Requests\UpdateStudentParentRequest;
 use App\Http\Resources\StudentParentResource;
+use App\Http\Resources\StudentResource;
 use App\Models\StudentParent;
+use App\Models\User;
 
-class StudentParentController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-       $parents =  StudentParent::all();
-       return StudentParentResource::collection($parents);
+       $students =  User::all();
+       return StudentResource::collection($students);
     }
 
     /**
@@ -24,14 +26,14 @@ class StudentParentController extends Controller
     public function store(StoreStudentParentRequest $request)
     {
 
-      $formData = $request->validated();
-      $formData['last_login_date'] = now()->toDateTimeString();
-      $parent = StudentParent::create($formData);
-      $response = new StudentParentResource($parent);
-      return response()->json([
-        'parent'=> $response,
-        'message'=> __('parent created successfully')
-      ]);
+    //   $formData = $request->validated();
+    //   $formData['last_login_date'] = now()->toDateTimeString();
+    //   $parent = StudentParent::create($formData);
+    //   $response = new StudentParentResource($parent);
+    //   return response()->json([
+    //     'parent'=> $response,
+    //     'message'=> __('parent created successfully')
+    //   ]);
       
     }
 
@@ -48,11 +50,11 @@ class StudentParentController extends Controller
      */
     public function update(UpdateStudentParentRequest $request, StudentParent $parent)
     {
-        $parent->update($request->validated());
-        return response()->json([
-        'parent'=> $parent,
-        'message'=> __('parent updated successfully')
-      ]);
+    //     $parent->update($request->validated());
+    //     return response()->json([
+    //     'parent'=> $parent,
+    //     'message'=> __('parent updated successfully')
+    //   ]);
     }
 
     /**
@@ -60,7 +62,7 @@ class StudentParentController extends Controller
      */
     public function destroy(StudentParent $parent)
     {
-        $parent->delete();
-        return new StudentParentResource($parent);
+        // $parent->delete();
+        // return new StudentParentResource($parent);
     }
 }

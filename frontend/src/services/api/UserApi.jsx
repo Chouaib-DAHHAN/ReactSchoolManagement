@@ -1,4 +1,4 @@
-import { axiosClient } from "../../../api/axios";
+import { axiosClient } from "../../api/axios";
 
 
 
@@ -16,7 +16,7 @@ const UserApi = {
         
     },
     getUser : async () => {
-        return await  axiosClient.get("/admin")
+        return await  axiosClient.get("/me")
     },
 
     logout : async () => {

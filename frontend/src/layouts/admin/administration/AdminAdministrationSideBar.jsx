@@ -2,7 +2,8 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Link } from "react-router-dom"
-import { ADMIN_MANAGE_PARENTS_ROUTE } from "../../../router"
+import { ADMIN_MANAGE_PARENTS_ROUTE, ADMIN_MANAGE_STUDENTS_ROUTE } from "../../../router"
+import { GraduationCapIcon , UserIcon } from "lucide-react"
 
 
 
@@ -17,26 +18,20 @@ export function AdminAdministrationSideBar({ className }) {
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
             Administration
           </h2>
-          <div className="space-y-1">
-            <Link to={ADMIN_MANAGE_PARENTS_ROUTE}> <Button variant="secondary" className="w-full justify-start">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="mr-2 h-4 w-4"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <polygon points="10 8 16 12 10 16 10 8" />
-              </svg>Create Parent
-              
-            </Button></Link>
-           
-  
-            </div>
+         <div className="space-y-1">
+            <Link to={ADMIN_MANAGE_PARENTS_ROUTE}>
+              <Button variant="ghost" className="w-full justify-start">
+                <UserIcon className="mr-2"/>
+                Parents
+              </Button>
+            </Link>
+            <Link to={ADMIN_MANAGE_STUDENTS_ROUTE}>
+              <Button variant="ghost" className="w-full justify-start">
+                <GraduationCapIcon className="mr-2"/>
+                Students
+              </Button>
+            </Link>
+          </div>
         
         </div>
       </div>
